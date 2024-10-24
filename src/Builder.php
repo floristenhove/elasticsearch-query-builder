@@ -2,7 +2,7 @@
 
 namespace Spatie\ElasticsearchQueryBuilder;
 
-use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientInterface;
 use Elastic\Elasticsearch\Response\Elasticsearch;
 use Http\Promise\Promise;
 use Spatie\ElasticsearchQueryBuilder\Aggregations\Aggregation;
@@ -41,7 +41,7 @@ class Builder
 
     protected ?array $collapse = null;
 
-    public function __construct(protected Client $client)
+    public function __construct(protected ClientInterface $client)
     {
     }
 
