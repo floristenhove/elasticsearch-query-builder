@@ -54,4 +54,9 @@ class BoolQuery implements Query
             'bool' => array_filter($bool),
         ];
     }
+
+    public function isEmpty(): bool
+    {
+        return empty($this->must) && empty($this->filter) && empty($this->should) && empty($this->must_not);
+    }
 }
