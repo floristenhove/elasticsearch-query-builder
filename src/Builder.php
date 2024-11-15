@@ -14,6 +14,8 @@ class Builder
 {
     protected ?BoolQuery $query = null;
 
+    protected ?FiltersCollection $filters = null;
+
     protected ?AggregationCollection $aggregations = null;
 
     protected ?SortCollection $sorts = null;
@@ -47,6 +49,17 @@ class Builder
         }
 
         $this->query->add($query, $boolType);
+
+        return $this;
+    }
+
+    public function addFilter(Query $query): static
+    {
+        if (! $this->filters) {
+            $this->filters = new FiltersCollection();
+        }
+
+        $this->filters->add($query);
 
         return $this;
     }
@@ -181,6 +194,10 @@ class Builder
 
         if ($this->query) {
             $payload['query'] = $this->query->toArray();
+        }
+
+        if($this->filters) {
+            $payload['filters'] = $this->filters->toArray();
         }
 
         if ($this->withAggregations && $this->aggregations) {
